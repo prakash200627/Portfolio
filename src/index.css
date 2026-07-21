@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-slate-400: var(--my-slate-400);
+  --color-slate-500: var(--my-slate-500);
+  --color-slate-600: var(--my-slate-600);
+  --color-slate-700: var(--my-slate-700);
+  --color-slate-800: var(--my-slate-800);
+}
+
+:root {
+  --font-sans: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+  --color-bg: #f8fafc;
+  --color-bg-secondary: rgba(255, 255, 255, 0.8);
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-border: rgba(226, 232, 240, 0.8);
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --glass-surface: rgba(255, 255, 255, 0.7);
+  --glass-surface-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+
+  /* Card Design System */
+  --color-card-bg: rgba(255, 255, 255, 0.95);
+  --color-card-border: rgba(226, 232, 240, 0.9);
+  --color-card-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
+
+  /* Glows System - elevated for premium light-theme visibility */
+  --color-glow-1: rgba(37, 99, 235, 0.07);
+  --color-glow-2: rgba(99, 102, 241, 0.06);
+  --color-glow-3: rgba(56, 189, 248, 0.06);
+  --color-glow-4: rgba(236, 72, 153, 0.03);
+
+  /* Custom high-contrast slate colors for light mode */
+  --my-slate-400: #64748b; /* slate-500 (readable secondary text, 4.6:1 contrast) */
+  --my-slate-500: #475569; /* slate-600 (excellent paragraph readability, 5.2:1 contrast) */
+  --my-slate-600: #334155; /* slate-700 */
+  --my-slate-700: #1e293b; /* slate-800 */
+  --my-slate-800: #0f172a; /* slate-900 (ultra-sharp titles/headers) */
+}
+
+.dark {
+  --color-bg: #030712;
+  --color-bg-secondary: rgba(10, 15, 30, 0.8);
+  --color-text: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --glass-surface: rgba(10, 15, 30, 0.7);
+  --glass-surface-strong: rgba(10, 15, 30, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Card Design System */
+  --color-card-bg: rgba(10, 15, 30, 0.45);
+  --color-card-border: rgba(255, 255, 255, 0.06);
+  --color-card-shadow: none;
+
+  /* Glows System */
+  --color-glow-1: rgba(59, 130, 246, 0.06);
+  --color-glow-2: rgba(99, 102, 241, 0.05);
+  --color-glow-3: rgba(56, 189, 248, 0.04);
+  --color-glow-4: rgba(236, 72, 153, 0.03);
+
+  /* Standard beautiful theme slate colors for dark mode */
+  --my-slate-400: #94a3b8;
+  --my-slate-500: #64748b;
+  --my-slate-600: #475569;
+  --my-slate-700: #334155;
+  --my-slate-800: #e2e8f0; /* Soft slate-200 level for headers */
+}
+
+html {
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(
+      circle at top left,
+      var(--color-glow-1),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      var(--color-glow-3),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 20% 85%,
+      var(--color-glow-4),
+      transparent 25%
+    ),
+    var(--color-bg);
+}
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(
+      circle at top left,
+      var(--color-glow-2),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at top right,
+      var(--color-glow-3),
+      transparent 20%
+    ),
+    var(--color-bg);
+  color: var(--color-text);
+  position: relative;
+  overflow-x: hidden;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.8;
+}
+
+body::before {
+  top: -6rem;
+  left: -5rem;
+  width: 18rem;
+  height: 18rem;
+  background: var(--color-glow-1);
+}
+
+body::after {
+  right: -6rem;
+  top: 28vh;
+  width: 22rem;
+  height: 22rem;
+  background: var(--color-glow-2);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.glass-shell {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.glass-card {
+  background: color-mix(in srgb, var(--glass-surface-strong) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 82%, transparent);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--glass-border);
+  background: color-mix(in srgb, var(--glass-surface) 88%, transparent);
+  color: var(--color-accent);
+  border-radius: 9999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.section-copy {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.input-glass {
+  background: color-mix(in srgb, var(--glass-surface-strong) 86%, transparent);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.5s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease forwards;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-bar-fill {
+  width: 0;
+  transition: width 1s ease;
+}
+
+.skill-bar-fill.visible {
+  width: var(--skill-level);
+}
